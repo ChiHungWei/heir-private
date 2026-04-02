@@ -18,17 +18,17 @@ common --enable_workspace
 common --incompatible_strict_action_env
 
 # compile with clang on all platforms
-build --action_env=CC=clang
-build --action_env=CXX=clang++
-build --host_action_env=CC=clang
-build --host_action_env=CXX=clang++
+build --action_env=CC=clang-18
+build --action_env=CXX=clang++-18
+build --host_action_env=CC=clang-18
+build --host_action_env=CXX=clang++-18
 
 # Only show warnings for targets defined in HEIR code.
 # Warnings for external repos and generated code is (mostly) hidden; see #2616
 build --output_filter="^//(benchmark|frontend|lib|tests|tools)/"
 
 # linux-specific options
-build:linux --linkopt="-fuse-ld=lld"
+build:linux --linkopt="-fuse-ld=lld-18"
 
 # macos specific options
 # openmp is not supported in apple clang

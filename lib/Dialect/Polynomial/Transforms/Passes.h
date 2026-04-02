@@ -3,6 +3,7 @@
 
 #include "lib/Dialect/Polynomial/IR/PolynomialDialect.h"
 #include "lib/Dialect/Polynomial/Transforms/NTTRewrites.h"
+#include "lib/Dialect/Polynomial/Transforms/KernelFusion.h"
 
 namespace mlir {
 namespace heir {

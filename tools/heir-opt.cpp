@@ -152,6 +152,9 @@
 #include "mlir/include/mlir/Tools/mlir-opt/MlirOptMain.h"  // from @llvm-project
 #include "mlir/include/mlir/Transforms/Passes.h"           // from @llvm-project
 
+#include "lib/Dialect/CKKS/Transforms/KernelFusion.h"
+#include "lib/Dialect/Polynomial/Transforms/KernelFusion.h"
+
 #ifndef HEIR_NO_YOSYS
 #include "lib/Transforms/YosysOptimizer/YosysOptimizer.h"
 #endif
@@ -278,6 +281,8 @@ int main(int argc, char** argv) {
   polynomial::registerPolynomialPasses();
   secret::registerSecretPasses();
   tensor_ext::registerTensorExtPasses();
+  ckks::registerCKKSKernelFusionPass(); // fusion pass registration
+  polynomial::registerPolynomialKernelFusionPass();
   registerAddClientInterfacePass();
   registerElementwiseToAffinePasses();
   registerSecretizePasses();

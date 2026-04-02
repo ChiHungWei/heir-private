@@ -36,6 +36,8 @@ cc_binary(
     }),
     includes = ["include"],
     deps = [
+        "@heir//lib/Dialect/CKKS/Transforms:KernelFusion",
+        "@heir//lib/Dialect/Polynomial/Transforms:KernelFusion",
         "@heir//lib/Analysis/NoiseAnalysis",  # buildcleaner: keep
         "@heir//lib/Analysis/NoiseAnalysis/BFV:NoiseAnalysis",  # buildcleaner: keep
         "@heir//lib/Analysis/NoiseAnalysis/BGV:NoiseAnalysis",  # buildcleaner: keep

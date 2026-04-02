@@ -19,4 +19,13 @@ def DecomposeKeySwitch : Pass<"ckks-decompose-keyswitch"> {
   let dependentDialects = ["mlir::heir::ckks::CKKSDialect", "tensor::TensorDialect"];
 }
 
+// def CKKSKernelFusion : Pass<"ckks-kernel-fusion"> {
+//   let summary = "Fuse profitable adjacent CKKS ops";
+//   let description = [{
+//     Greedy local fusion for CKKS producer-consumer chains.
+//     Intended to run after secret-to-ckks and before lowering out of CKKS.
+//   }];
+//   let dependentDialects = ["mlir::heir::ckks::CKKSDialect"];
+// }
+
 #endif  // LIB_DIALECT_CKKS_TRANSFORMS_PASSES_TD_

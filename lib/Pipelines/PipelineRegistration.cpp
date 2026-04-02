@@ -27,6 +27,8 @@
 #include "mlir/include/mlir/Pass/PassRegistry.h"  // from @llvm-project
 #include "mlir/include/mlir/Transforms/Passes.h"  // from @llvm-project
 
+#include "lib/Dialect/Polynomial/Transforms/KernelFusion.h"
+
 using namespace mlir;
 using namespace heir;
 using mlir::func::FuncOp;
@@ -65,6 +67,7 @@ void polynomialToLLVMPipelineBuilder(OpPassManager& manager) {
   manager.addPass(createLowerPolynomialEval());
   ElementwiseToAffineOptions elementwiseOptions;
   elementwiseOptions.convertDialects = {"polynomial"};
+  manager.addPass(polynomial::createKernelFusion());  // fusion pass
   manager.addPass(createElementwiseToAffine(elementwiseOptions));
   manager.addPass(polynomial::createPolynomialToModArith());
   manager.addPass(::mlir::heir::mod_arith::createModArithToArith());

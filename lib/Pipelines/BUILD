@@ -10,6 +10,7 @@ cc_library(
     srcs = ["PipelineRegistration.cpp"],
     hdrs = ["PipelineRegistration.h"],
     deps = [
+        "@heir//lib/Dialect/Polynomial/Transforms:KernelFusion",
         "@heir//lib/Dialect/BGV/Conversions/BGVToLWE",
         "@heir//lib/Dialect/LWE/Conversions/LWEToPolynomial",
         "@heir//lib/Dialect/ModArith/Conversions/ModArithToArith",
@@ -97,6 +98,7 @@ cc_library(
     hdrs = ["ArithmeticPipelineRegistration.h"],
     deps = [
         ":PipelineRegistration",
+        "@heir//lib/Dialect/CKKS/Transforms:KernelFusion",
         "@heir//lib/Dialect/BGV/Conversions/BGVToLWE",
         "@heir//lib/Dialect/CKKS/Conversions/CKKSToLWE",
         "@heir//lib/Dialect/Debug/Transforms",

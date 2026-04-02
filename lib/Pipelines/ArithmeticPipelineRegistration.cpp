@@ -64,6 +64,8 @@
 #include "mlir/include/mlir/Pass/PassOptions.h"   // from @llvm-project
 #include "mlir/include/mlir/Transforms/Passes.h"  // from @llvm-project
 
+#include "lib/Dialect/CKKS/Transforms/KernelFusion.h"
+
 namespace mlir::heir {
 
 void heirSIMDVectorizerPipelineBuilder(OpPassManager& manager,
@@ -391,6 +393,7 @@ void mlirToRLWEPipeline(OpPassManager& pm,
       auto secretToCKKSOpts = SecretToCKKSOptions{};
       secretToCKKSOpts.polyModDegree = options.ciphertextDegree;
       pm.addPass(createSecretToCKKS(secretToCKKSOpts));
+      pm.addPass(ckks::createKernelFusion()); // Fusion pass
       break;
     }
     case RLWEScheme::bgvScheme:

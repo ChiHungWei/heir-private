@@ -3,6 +3,45 @@
 
 include "mlir/IR/OpBase.td"
 
+def FusableOpInterface : OpInterface<"FusableOpInterface"> {
+  let cppNamespace = "::mlir::heir";
+  let description = [{
+    Interface used by shared FHE fusion passes. It provides coarse semantic
+    information to a generic fusion scheduler, while legality and rewrite
+    details may still be refined by dialect-specific policies.
+  }];
+
+  let methods = [
+    InterfaceMethod<
+      "Returns true if this op should be treated as a hard fusion barrier.",
+      "bool", "isFusionBarrier",
+      (ins),
+      [{ return false; }]
+    >,
+
+    InterfaceMethod<
+      "Returns true if this op is eligible to participate in fusion.",
+      "bool", "isFusionCandidate",
+      (ins),
+      [{ return true; }]
+    >,
+
+    InterfaceMethod<
+      "Returns an integer cost/benefit hint for fusing this producer with the given consumer.",
+      "int64_t", "estimateFusionBenefit",
+      (ins "::mlir::Operation *":$consumer),
+      [{ return 0; }]
+    >,
+
+    InterfaceMethod<
+      "Returns true if this op may be fused with the given consumer ignoring transitive constraints.",
+      "bool", "canFuseWith",
+      (ins "::mlir::Operation *":$consumer),
+      [{ return true; }]
+    >
+  ];
+}
+
 def SecretTypeInterface : TypeInterface<"SecretTypeInterface"> {
   let cppNamespace = "::mlir::heir";
   let description = [{

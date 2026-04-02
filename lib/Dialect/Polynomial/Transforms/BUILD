@@ -12,11 +12,26 @@ cc_library(
     name = "Transforms",
     hdrs = [
         "Passes.h",
+        "KernelFusion.h",
     ],
     deps = [
+        ":KernelFusion",
         ":NTTRewrites",
         ":pass_inc_gen",
         "@heir//lib/Dialect/Polynomial/IR:Dialect",
+    ],
+)
+
+cc_library(
+    name = "KernelFusion",
+    srcs = ["KernelFusion.cpp"],
+    hdrs = ["KernelFusion.h"],
+    deps = [
+        "@heir//lib/Dialect/Polynomial/IR:Dialect",
+        "@heir//lib/Transforms/FHEKernelFusion",
+        "@llvm-project//mlir:IR",
+        "@llvm-project//mlir:Pass",
+        "@llvm-project//mlir:Support",
     ],
 )
 

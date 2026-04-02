@@ -8,12 +8,32 @@ package(
 
 cc_library(
     name = "Transforms",
-    hdrs = ["Passes.h"],
+    hdrs = [
+        "Passes.h",
+        "KernelFusion.h",
+    ],
     deps = [
         ":DecomposeKeySwitch",
         ":DecomposeRelinearize",
+        ":KernelFusion",
         ":pass_inc_gen",
+        "@heir//lib/Dialect/CKKS/IR:Dialect",
+        "@llvm-project//mlir:IR",
         "@llvm-project//mlir:Pass",
+        "@llvm-project//mlir:Support",
+    ],
+)
+
+cc_library(
+    name = "KernelFusion",
+    srcs = ["KernelFusion.cpp"],
+    hdrs = ["KernelFusion.h"],
+    deps = [
+        "@heir//lib/Dialect/CKKS/IR:Dialect",
+        "@heir//lib/Transforms/FHEKernelFusion",
+        "@llvm-project//mlir:IR",
+        "@llvm-project//mlir:Pass",
+        "@llvm-project//mlir:Support",
     ],
 )
 
